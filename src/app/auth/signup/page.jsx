@@ -6,13 +6,16 @@ import { Card, Input, Button } from "@heroui/react";
 import { Eye, EyeOff } from "lucide-react";
 import { authClient } from "@/lib/auth-client";
 import { useRouter } from "next/navigation";
+import { Description, Label, Radio, RadioGroup } from "@heroui/react";
 
 export default function SignUpPage() {
+  // const [role, setRole] = useState("seeker");
   const router = useRouter();
   const [formData, setFormData] = useState({
     name: "",
     email: "",
     password: "",
+    role: "seeker",
   });
 
   const [loading, setLoading] = useState(false);
@@ -40,6 +43,7 @@ export default function SignUpPage() {
         email: formData.email,
         password: formData.password,
         name: formData.name,
+        role: formData.role,
       });
 
       if (error) {
@@ -122,10 +126,43 @@ export default function SignUpPage() {
               <button
                 type="button"
                 onClick={() => setShowPassword(!showPassword)}
-                className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-white"
+                className="absolute right-3 top-5 -translate-y-1/2 text-gray-400 hover:text-white"
               >
                 {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
               </button>
+
+              <div className="flex flex-col gap-4 mt-4">
+                <Label> Select Account Type</Label>
+                <RadioGroup
+                  defaultValue={formData.role}
+                  onChange={(value) =>
+                    setFormData((prev) => ({
+                      ...prev,
+                      role: value,
+                    }))
+                  }
+                  orientation="horizontal"
+                  className="gap-6"
+                >
+                  <Radio value="seeker">
+                    <Radio.Control>
+                      <Radio.Indicator />
+                    </Radio.Control>
+                    <Radio.Content>
+                      <Label>Seeker</Label>
+                    </Radio.Content>
+                  </Radio>
+
+                  <Radio value="recruiter">
+                    <Radio.Control>
+                      <Radio.Indicator />
+                    </Radio.Control>
+                    <Radio.Content>
+                      <Label>Recruiter</Label>
+                    </Radio.Content>
+                  </Radio>
+                </RadioGroup>
+              </div>
             </div>
           </div>
 

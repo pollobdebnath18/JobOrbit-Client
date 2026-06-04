@@ -14,6 +14,7 @@ const Navbar = () => {
 
   const handleSignOut = async () => {
     await authClient.signOut();
+    window.location.reload(); //instant change
   };
 
   return (
@@ -59,7 +60,7 @@ const Navbar = () => {
               />
 
               <span className="text-sm text-white font-medium flex gap-5 items-center">
-                Hi, {user?.name} 
+                Hi, {user?.name}
                 <span>
                   <Button onClick={handleSignOut}>SignOut</Button>
                 </span>
