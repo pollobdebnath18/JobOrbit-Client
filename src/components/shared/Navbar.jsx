@@ -10,7 +10,7 @@ const Navbar = () => {
   const [open, setOpen] = useState(false);
   const { data: session, isPending } = useSession();
   const user = session?.user;
-  console.log("user : ", user, "ispending : ", isPending);
+  // console.log("user : ", user, "ispending : ", isPending);
 
   const handleSignOut = async () => {
     await authClient.signOut();
