@@ -6,3 +6,4 @@ export const getCompanyJobs = async(companyId, status = "active") => {
   );
   return res.json();
 };
+

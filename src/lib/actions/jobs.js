@@ -10,3 +10,5 @@ export const createJob = async (newJobData) => {
   });
   return res.json();
 };
+
+
