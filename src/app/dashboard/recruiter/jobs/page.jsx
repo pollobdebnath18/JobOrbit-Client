@@ -4,10 +4,11 @@ import { Table, Button } from "@heroui/react";
 
 import { Eye, Pencil, Trash2 } from "lucide-react";
 import { Briefcase } from "@gravity-ui/icons";
+import { getLoggedInRecruterCompany } from "@/lib/api/companies";
 
 const RecruiterJobs = async () => {
-  const companyId = "company_123";
-  const jobs = await getCompanyJobs(companyId);
+  const company = await getLoggedInRecruterCompany();
+  const jobs = await getCompanyJobs(company._id);
 
   return (
     <div className="p-6">

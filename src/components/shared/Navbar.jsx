@@ -16,6 +16,20 @@ const Navbar = () => {
     await authClient.signOut();
     window.location.reload(); //instant change
   };
+  const navLink = [
+    {
+      label: "Browse Jobs",
+      href: "/jobs",
+    },
+    {
+      label: "Companies",
+      href: "/companies",
+    },
+    {
+      label: "Pricings",
+      href: "/pricings",
+    },
+  ];
 
   return (
     <header
@@ -35,17 +49,13 @@ const Navbar = () => {
 
         {/* ================= DESKTOP MENU ================= */}
         <ul className="hidden md:flex items-center gap-7 text-sm text-gray-300">
-          <li className="hover:text-white transition">
-            <Link href="/jobs">Jobs</Link>
-          </li>
-
-          <li className="hover:text-white transition">
-            <Link href="/companies">Companies</Link>
-          </li>
-
-          <li className="hover:text-white transition">
-            <Link href="/pricing">Pricing</Link>
-          </li>
+          {navLink.map((item) => (
+            <li key={item.href}>
+              <Link href={item.href} className="hover:text-white transition">
+                {item.label}
+              </Link>
+            </li>
+          ))}
 
           {/* Divider */}
           <div className="h-5 w-px bg-white/50 mx-2" />
@@ -106,17 +116,16 @@ const Navbar = () => {
             px-4 py-4 space-y-4
           "
         >
-          <Link href="/jobs" className="block hover:text-white">
-            Jobs
-          </Link>
-
-          <Link href="/companies" className="block hover:text-white">
-            Companies
-          </Link>
-
-          <Link href="/pricing" className="block hover:text-white">
-            Pricing
-          </Link>
+          {navLink.map((item) => (
+            <Link
+              key={item.href}
+              href={item.href}
+              className="block hover:text-white py-2"
+              onClick={() => setOpen(false)} // close menu on click
+            >
+              {item.label}
+            </Link>
+          ))}
 
           <hr className="border-white/10" />
 

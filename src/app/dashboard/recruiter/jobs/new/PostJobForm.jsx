@@ -22,11 +22,11 @@ import { redirect } from "next/navigation";
 export default function PostJobForm({ company }) {
   //Todo :  Mock configuration for recruiter's authenticated state
   // console.log(company, "company form");
-  const [mockCompany] = useState({
-    name: "Acme Corp (Auto-filled)",
-    id: "company_123",
-    isApproved: true,
-  });
+  // const [mockCompany] = useState({
+  //   name: "Acme Corp (Auto-filled)",
+  //   id: "company_123",
+  //   isApproved: true,
+  // });
 
   const [errors, setErrors] = useState({});
   const [locationType, setLocationType] = useState("onsite");
@@ -34,7 +34,7 @@ export default function PostJobForm({ company }) {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (!mockCompany.isApproved) {
+    if (!company.status) {
       alert("Your company profile must be approved before you can post jobs.");
       return;
     }
@@ -72,7 +72,9 @@ export default function PostJobForm({ company }) {
       locationType,
       location: locationType === "remote" ? "Remote" : data.location,
       isRemote: locationType === "remote",
-      companyId: mockCompany.id,
+      companyId: company._id,
+      companyName: company.companyName,
+      companyLogo: company.logo,
       status: "active",
       isPubliclyVisible: true,
     };
@@ -117,9 +119,9 @@ export default function PostJobForm({ company }) {
             <Briefcase size={14} className="text-zinc-500" />
             Posting as:{" "}
             <span className="font-semibold text-zinc-300">
-              {mockCompany.name}
+              {company.name}
             </span>
-            {mockCompany.isApproved ? (
+            {company.isApproved ? (
               <span className="text-emerald-500 font-medium bg-emerald-950/30 px-1.5 py-0.5 rounded border border-emerald-900/50">
                 Approved
               </span>

@@ -34,7 +34,7 @@ const RecruiterHomePage = () => {
     return <div>Loading...</div>;
   }
   const user = session?.user;
-  console.log(user);
+  // console.log(user);
   return (
     <div>
       <h1 className="text-4xl font-bold mb-4">Welcome Back , {user?.name}</h1>

@@ -124,7 +124,7 @@ export default function RegisterCompanyPage({ recruiter, recruiterCompany }) {
         employeeCount: data.employeeCount,
         description: data.description,
         logo: imageUrl,
-        status: "pending",
+        status: "approved",
         createdAt: new Date().toISOString(),
         recruiterId: recruiter.id,
       };
