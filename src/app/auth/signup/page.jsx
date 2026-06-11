@@ -5,7 +5,7 @@ import Link from "next/link";
 import { Card, Input, Button } from "@heroui/react";
 import { Eye, EyeOff } from "lucide-react";
 import { authClient } from "@/lib/auth-client";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { Description, Label, Radio, RadioGroup } from "@heroui/react";
 
 export default function SignUpPage() {
@@ -23,6 +23,9 @@ export default function SignUpPage() {
   const [success, setSuccess] = useState("");
 
   const [showPassword, setShowPassword] = useState(false);
+
+  const searchParams = useSearchParams();
+  const redirectTo = searchParams.get("redirect") || "/";
 
   const handleChange = (e) => {
     setFormData((prev) => ({
@@ -51,7 +54,7 @@ export default function SignUpPage() {
       }
 
       setSuccess("Account created successfully!");
-      router.push("/");
+      router.push(redirectTo);
 
       setFormData({
         name: "",
@@ -195,7 +198,7 @@ export default function SignUpPage() {
           <span className="text-gray-400">Already have an account?</span>
 
           <Link
-            href="/auth/signin"
+            href={`/auth/signin?redirect=${redirectTo}`}
             className="ml-2 text-blue-400 hover:text-blue-300 font-medium"
           >
             Sign In

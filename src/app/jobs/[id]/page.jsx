@@ -1,9 +1,10 @@
 import { getJobById } from "@/lib/api/jobs";
 import Image from "next/image";
+import Link from "next/link";
 
 const JobDetailsPage = async ({ params }) => {
-  const { id } =await params;
-  console.log(id,'id')
+  const { id } = await params;
+  console.log(id, "id");
   const job = await getJobById(id);
   console.log("Job details:", job);
 
@@ -19,7 +20,7 @@ const JobDetailsPage = async ({ params }) => {
         <div className="flex items-center gap-4">
           <Image
             src={job.companyLogo || "/avatar.png"}
-            alt={job.companyName}
+            alt={job.companyName || 'company name'}
             width={50}
             height={50}
             className="rounded-lg border border-white/10"
@@ -96,9 +97,11 @@ const JobDetailsPage = async ({ params }) => {
 
         {/* APPLY BUTTON */}
         <div className="mt-8 flex gap-3">
-          <button className="bg-blue-600 hover:bg-blue-700 px-5 py-2 rounded-lg font-medium">
-            Apply Now
-          </button>
+          <Link href={`/jobs/${id}/apply`}>
+            <button className="bg-blue-600 hover:bg-blue-700 px-5 py-2 rounded-lg font-medium">
+              Apply Now
+            </button>
+          </Link>
 
           <button className="border border-white/20 px-5 py-2 rounded-lg">
             Save Job
