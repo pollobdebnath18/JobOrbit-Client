@@ -42,16 +42,15 @@ const ApplyJobForm = ({ job, applicant }) => {
 
     const payload = {
       jobId: job?._id,
-      applicantId: applicant?._id,
+      jobTitle: job?.jobTitle,
 
+      applicantId: applicant?.id,
       applicationName: applicant?.name,
       applicationEmail: applicant?.email,
 
       // FIXED FIELDS (from your DB)
       companyId: job?.companyId,
       companyName: job?.companyName,
-
-      jobTitle: job?.jobTitle,
 
       ...formData,
     };

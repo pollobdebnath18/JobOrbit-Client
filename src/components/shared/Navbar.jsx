@@ -27,7 +27,7 @@ const Navbar = () => {
     },
     {
       label: "Pricings",
-      href: "/pricings",
+      href: "/plans",
     },
   ];
 
