@@ -20,7 +20,8 @@ export default function PricingPage() {
     },
     {
       name: "Pro",
-      price: "$19",
+      id: "seeker_pro",
+      price: "$29",
       desc: "For active job seekers",
       featured: true,
       features: [
@@ -32,7 +33,8 @@ export default function PricingPage() {
     },
     {
       name: "Premium",
-      price: "$39",
+      id: "seeker_premium",
+      price: "$27",
       desc: "For serious career growth",
       features: [
         "Unlimited job applications",
@@ -46,6 +48,7 @@ export default function PricingPage() {
   const recruiterPlans = [
     {
       name: "Free",
+
       price: "$0",
       desc: "For new companies",
       features: [
@@ -56,7 +59,8 @@ export default function PricingPage() {
     },
     {
       name: "Growth",
-      price: "$49",
+      id: "recruiter_growth",
+      price: "$19",
       desc: "Scaling hiring teams",
       featured: true,
       features: [
@@ -68,7 +72,8 @@ export default function PricingPage() {
     },
     {
       name: "Enterprise",
-      price: "$149",
+      id: "recruiter_enterprise",
+      price: "$39",
       desc: "Large scale hiring",
       features: [
         "Up to 50 active job posts",
@@ -169,8 +174,9 @@ export default function PricingPage() {
 
             {/* Button */}
             <form action="/api/checkout_sessions" method="POST">
+              <input type="hidden" name="plan_id" value={plan.id} />
               <section>
-                <button 
+                <button
                   type="submit"
                   role="link"
                   className={`cursor-pointer mt-8 w-full py-3 rounded-xl font-medium transition

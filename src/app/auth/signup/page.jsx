@@ -41,12 +41,15 @@ export default function SignUpPage() {
     setError("");
     setSuccess("");
 
+    const plan = formData.role === "seeker" ? "seeker_free" : "recruiter_free";
+
     try {
-      const { data, error } = await authClient.signUp.email({
+      const { error } = await authClient.signUp.email({
         email: formData.email,
         password: formData.password,
         name: formData.name,
         role: formData.role,
+        plan,
       });
 
       if (error) {

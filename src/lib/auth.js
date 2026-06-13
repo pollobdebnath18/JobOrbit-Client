@@ -20,6 +20,9 @@ export const auth = betterAuth({
         default: "seeker",
         input: true, //  IMPORTANT (allows client to send it)
       },
+      plan:{
+        default: "seeker_free",
+      }
     },
   },
 });

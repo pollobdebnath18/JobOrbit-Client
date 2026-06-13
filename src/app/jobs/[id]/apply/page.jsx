@@ -5,6 +5,7 @@ import React from "react";
 import ApplyJobForm from "./ApplyJobForm";
 import { getApplicationsByApplicant } from "@/lib/api/applications";
 import Link from "next/link";
+import { getPlanById } from "@/lib/api/plans";
 
 const ApplyPage = async ({ params }) => {
   const { id } = await params;
@@ -33,14 +34,13 @@ const ApplyPage = async ({ params }) => {
 
   const applications = await getApplicationsByApplicant(user.id);
 
-  const plan = {
-    name: "Free",
-    maxMonthlyApplications: 8,
-  };
+  const planData = await getPlanById(user?.plan) || 'seeker_free';
+  const plan = planData?.[0]
+  console.log(plan);
 
   const job = await getJobById(id);
 
-  const percentage = (applications.length / plan.maxMonthlyApplications) * 100;
+  const percentage = (applications.length / plan.maxApplicationPerMonth) * 100;
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-black via-zinc-950 to-black text-white">
@@ -63,7 +63,7 @@ const ApplyPage = async ({ params }) => {
               <h2 className="text-3xl font-bold">
                 {applications.length}
                 <span className="text-gray-500">
-                  /{plan.maxMonthlyApplications}
+                  /{plan.maxApplicationPerMonth}
                 </span>
               </h2>
             </div>
@@ -77,7 +77,7 @@ const ApplyPage = async ({ params }) => {
           <div className="w-full h-3 bg-zinc-800 rounded-full overflow-hidden">
             <div
               className={`h-full transition-all duration-500 ${
-                applications.length >= plan.maxMonthlyApplications
+                applications.length >= plan.maxApplicationPerMonth
                   ? "bg-red-500"
                   : "bg-blue-500"
               }`}
@@ -97,7 +97,7 @@ const ApplyPage = async ({ params }) => {
         </div>
 
         {/* Limit Reached */}
-        {applications.length >= plan.maxMonthlyApplications ? (
+        {applications.length >= plan.maxApplicationPerMonth ? (
           <div className="bg-red-500/10 border border-red-500/30 rounded-3xl p-8 text-center">
             <div className="text-5xl mb-4">⚠️</div>
 
