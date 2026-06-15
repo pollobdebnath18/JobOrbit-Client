@@ -40,6 +40,8 @@ export default function RegisterCompanyPage({ recruiter, recruiterCompany }) {
   const [loading, setLoading] = useState(false);
   const [logoFile, setLogoFile] = useState(null);
   const [logoPreview, setLogoPreview] = useState(null);
+  const [company, setCompany] = useState(recruiterCompany);
+  console.log(company , 'from registercomapnypage');
 
   const handleLogoChange = (e) => {
     const file = e.target.files?.[0];
@@ -124,17 +126,25 @@ export default function RegisterCompanyPage({ recruiter, recruiterCompany }) {
         employeeCount: data.employeeCount,
         description: data.description,
         logo: imageUrl,
-        status: "approved",
+        status: company && company?.status ? company.status : "Pending",
         createdAt: new Date().toISOString(),
         recruiterId: recruiter.id,
       };
 
       console.log("Company Payload:", payload);
 
-      const company = await createCompany(payload);
-      if (company.insertedId) {
+      const result = await createCompany(payload);
+      if (result.insertedId) {
         toast.success("Company Profile Created Successfully");
+
+        setCompany({
+          ...payload,
+          _id: result.insertedId,
+        });
+
+        setShowForm(false);
       }
+      console.log("Create Company Result:", result);
 
       // ================= UI UPDATE =================
       setHasCompany(true);
@@ -152,8 +162,81 @@ export default function RegisterCompanyPage({ recruiter, recruiterCompany }) {
     }
   };
 
+  // ================= COMPANY CARD (OUTSIDE FUNCTION) =================
+
+ if (company && !showForm)
+   return (
+     <div className="mb-6 p-6 rounded-xl border border-zinc-800 bg-[#1c1c1e]">
+       <div className="flex items-start justify-between">
+         {/* LEFT SIDE */}
+         <div className="flex gap-5">
+           {/* LOGO */}
+           <img
+             src={company.logo}
+             alt="logo"
+             className="w-20 h-20 rounded-xl object-cover border border-zinc-700"
+           />
+
+           <div className="space-y-2">
+             {/* Company Name */}
+             <h2 className="text-xl font-bold text-white">
+               {company.companyName}
+             </h2>
+
+             {/* Basic info */}
+             <p className="text-sm text-zinc-400">
+               {company.industry} • {company.location}
+             </p>
+
+             {/* Website */}
+             {company.website && (
+               <p className="text-sm text-blue-400">{company.website}</p>
+             )}
+
+             {/* Employee */}
+             <p className="text-sm text-zinc-300">
+               Employees:
+               <span className="text-zinc-400 ml-2">
+                 {company.employeeCount}
+               </span>
+             </p>
+
+             {/* Status */}
+             <div className="flex items-center gap-2">
+               <span className="text-sm text-zinc-300">Status:</span>
+
+               <span className="px-2 py-1 rounded-md text-xs bg-yellow-500/20 text-yellow-400">
+                 { company.status || "Pending"}
+               </span>
+             </div>
+           </div>
+         </div>
+
+         {/* RIGHT SIDE */}
+         <Button
+           size="sm"
+           className="bg-white text-black font-semibold"
+           onClick={() => setShowForm(true)}
+         >
+           Edit Company
+         </Button>
+       </div>
+
+       {/* DESCRIPTION */}
+       <div className="mt-5 pt-5 border-t border-zinc-800">
+         <h3 className="text-sm font-semibold text-white mb-2">
+           About Company
+         </h3>
+
+         <p className="text-sm text-zinc-400 leading-relaxed">
+           {company.description}
+         </p>
+       </div>
+     </div>
+   );
+
   // ================= EMPTY STATE (OUTSIDE FUNCTION) =================
-  if (!hasCompany && !showForm) {
+  if (!company && !showForm) {
     return (
       <div className="max-w-3xl mx-auto flex flex-col items-center justify-center min-h-[60vh] text-center">
         <Building2 className="w-14 h-14 text-zinc-500 mb-4" />

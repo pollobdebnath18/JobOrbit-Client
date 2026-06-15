@@ -52,6 +52,8 @@ const ApplyJobForm = ({ job, applicant }) => {
       companyId: job?.companyId,
       companyName: job?.companyName,
 
+      status: "Applied", // default status
+
       ...formData,
     };
     console.log("Application Submitted:", payload);

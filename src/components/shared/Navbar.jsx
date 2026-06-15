@@ -31,6 +31,19 @@ const Navbar = () => {
     },
   ];
 
+  const dashboardLink = {
+    seeker: "/dashboard/seeker",
+    recruiter: "/dashboard/recruiter",
+    admin: "/dashboard/admin",
+  };
+
+  if (user?.email) {
+    navLink.push({
+      label: "Dashboard",
+      href: dashboardLink[user?.role] || "seeker",
+    });
+  }
+
   return (
     <header
       className="

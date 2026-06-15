@@ -7,7 +7,7 @@ const PostJobPage = async () => {
 //   console.log(company, "company");
   return (
     <div>
-      <PostJobForm company={company}></PostJobForm>
+      <PostJobForm company={company?.data}></PostJobForm>
     </div>
   );
 };

@@ -7,8 +7,14 @@ import { Briefcase } from "@gravity-ui/icons";
 import { getLoggedInRecruterCompany } from "@/lib/api/companies";
 
 const RecruiterJobs = async () => {
-  const company = await getLoggedInRecruterCompany();
-  const jobs = await getCompanyJobs(company._id);
+  const companyData = await getLoggedInRecruterCompany();
+  const company = companyData?.data || null;
+
+  const jobsData = await getCompanyJobs(company?._id);
+  const jobs = jobsData || [];
+
+  console.log("JOBS:", jobs);
+  console.log("RECRUITER COMPANY:", company);
 
   return (
     <div className="p-6">

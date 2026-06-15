@@ -7,6 +7,7 @@ import { Eye, EyeOff } from "lucide-react";
 import { authClient } from "@/lib/auth-client";
 import { useRouter, useSearchParams } from "next/navigation";
 import { Description, Label, Radio, RadioGroup } from "@heroui/react";
+import { toast } from "react-toastify";
 
 export default function SignUpPage() {
   // const [role, setRole] = useState("seeker");
@@ -57,6 +58,8 @@ export default function SignUpPage() {
       }
 
       setSuccess("Account created successfully!");
+      toast.success('Account Created Successfully')
+  
       router.push(redirectTo);
 
       setFormData({
