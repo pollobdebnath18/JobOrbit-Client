@@ -1,5 +1,18 @@
 "use server";
+
+import { getUserToken } from "./session";
+
 const baseURL = process.env.NEXT_PUBLIC_BASE_URL;
+
+export const authHeader = async () => {
+  const token = await getUserToken();
+  const header = token
+    ? {
+        authorization: `Bearer ${token}`,
+      }
+    : {};
+  return header;
+};
 
 export const serverFetch = async (path) => {
   // console.log(path, "path","baseurl", baseURL, );
@@ -22,11 +35,19 @@ export const serverFetch = async (path) => {
   }
 };
 
-export const serverMutation = async (path, data, options='POST') => {
+export const protectedFetch = async (path) => {
+  const res = await fetch(`${baseURL}/${path}`, {
+    headers: await authHeader(),
+  });
+  return res.json();
+};
+
+export const serverMutation = async (path, data, options = "POST") => {
   const res = await fetch(`${baseURL}/${path}`, {
     method: options,
     headers: {
       "Content-Type": "application/json",
+      ...(await authHeader()),
     },
     body: JSON.stringify(data),
   });

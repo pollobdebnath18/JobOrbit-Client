@@ -129,6 +129,7 @@ export default function RegisterCompanyPage({ recruiter, recruiterCompany }) {
         status: company && company?.status ? company.status : "Pending",
         createdAt: new Date().toISOString(),
         recruiterId: recruiter.id,
+        recruiterEmail:recruiter.email,
       };
 
       console.log("Company Payload:", payload);

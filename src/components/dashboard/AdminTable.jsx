@@ -32,7 +32,7 @@ export default function AdminTable({ companies }) {
 
               <Table.Column>Recruiter Email</Table.Column>
 
-              <Table.Column>Industry</Table.Column>
+              <Table.Column>Job Count</Table.Column>
 
               <Table.Column>Status</Table.Column>
 
@@ -83,7 +83,7 @@ export default function AdminTable({ companies }) {
                     text-zinc-300
                     "
                     >
-                      {company.industry}
+                      {company.jobCount}
                     </span>
                   </Table.Cell>
 
