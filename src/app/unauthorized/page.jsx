@@ -35,11 +35,11 @@ const UnauthorizedPage = () => {
           </Link>
 
           <Link
-            href="javascript:history.back()"
+            href="/auth/signin"
             className="inline-flex items-center justify-center gap-2 rounded-xl border border-gray-300 bg-white px-6 py-3 text-sm font-medium text-gray-700 hover:bg-gray-50 transition"
           >
             <ArrowLeft className="h-5 w-5" />
-            Go Back
+            Sign In
           </Link>
         </div>
 

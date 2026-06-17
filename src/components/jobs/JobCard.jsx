@@ -5,7 +5,7 @@ import { Card, Link, Button } from "@heroui/react";
 import { MapPin, Briefcase, DollarSign, Clock } from "lucide-react";
 import Image from "next/image";
 
-const JobCard = ({ job }) => {
+const JobCard = ({ jobs }) => {
   const {
     _id,
     jobTitle,
@@ -18,11 +18,11 @@ const JobCard = ({ job }) => {
     deadline,
     companyName,
     companyLogo,
-  } = job;
+  } = jobs;
 
   return (
     <Card className="w-full max-w-md p-5 bg-zinc-900 border border-white/10 rounded-xl shadow-md hover:shadow-xl transition">
-      {" "}
+  
       {/* TOP: logo + title + description */}
       <div className="flex  gap-3 items-center">
         <Image
@@ -43,7 +43,7 @@ const JobCard = ({ job }) => {
         </h2>
 
         <p className="text-sm text-gray-400 leading-relaxed line-clamp-2">
-          {job.description ||
+          {jobs.description ||
             "We are looking for a talented professional to join our team."}
         </p>
       </div>
@@ -71,11 +71,11 @@ const JobCard = ({ job }) => {
       </div>
       {/* FOOTER BUTTONS */}
       <div className="mt-5 flex justify-between gap-3">
-        <Link href={`/jobs/${job?._id}`} className="text-sm text-primary">
+        <Link href={`/jobs/${jobs?._id}`} className="text-sm text-primary">
           View Details
         </Link>
 
-        <Link href={`/jobs/${job?._id.toString()}`}>Apply Now</Link>
+        <Link href={`/jobs/${jobs?._id.toString()}`}>Apply Now</Link>
       </div>
     </Card>
   );

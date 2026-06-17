@@ -53,7 +53,7 @@ const JobsPage = async ({ searchParams }) => {
       {/* JOB GRID */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {filteredJobs.map((job) => (
-          <JobCard key={job._id} job={job} />
+          <JobCard key={job._id} jobs={job} />
         ))}
       </div>
     </div>
