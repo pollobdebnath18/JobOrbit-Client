@@ -10,8 +10,8 @@ const JobFilter = () => {
 
   const [filters, setFilters] = useState({
     search: params.get("search") || "",
-    jobType: params.get("type") || "",
-    category: params.get("category") || "",
+    jobType: params.get("jobType") || "",
+    category: params.get("jobCategory") || "",
     remote: params.get("remote") === "true",
   });
 
